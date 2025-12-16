@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class TransaksiPenjualan extends Model
+{
+    use HasFactory;
+
+    protected $table = 'transaksi_penjualan';
+    protected $primaryKey = 'transaksi_id';
+
+    protected $fillable = [
+        'tanggal_transaksi',
+        'sales_id',
+        'produk_id',
+        'jumlah_unit',
+        'harga_total',
+        'komisi_yang_dihitung',
+    ];
+
+    protected $casts = [
+        'tanggal_transaksi' => 'date',
+        'jumlah_unit' => 'integer',
+        'harga_total' => 'decimal:2',
+        'komisi_yang_dihitung' => 'decimal:2',
+    ];
+
+    public function sales()
+    {
+        return $this->belongsTo(Sales::class, 'sales_id', 'sales_id');
+    }
+
+    public function produk()
+    {
+        return $this->belongsTo(Produk::class, 'produk_id', 'produk_id');
+    }
+}

@@ -1,0 +1,39 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('sales', function (Blueprint $table) {
+            $table->id('sales_id'); 
+
+            $table->string('nama_lengkap', 100);
+            $table->string('jabatan', 50); 
+
+            $table->decimal('gaji_pokok', 10, 2)->default(0);
+            $table->decimal('target_penjualan_bln', 10, 2)->default(0);
+
+            $table->boolean('status_aktif')->default(true);
+
+            $table->timestamps();
+
+            $table->index('jabatan');
+            $table->index('status_aktif');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('sales');
+    }
+};

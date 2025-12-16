@@ -12,13 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->id('user_id'); // PK
+
+            $table->string('username', 50)->unique();
+            $table->string('password_hash', 255);
+
+            $table->string('role', 10); // Admin / Sales
+
+            // Untuk Admin bisa NULL, untuk role Sales harus terisi
+            $table->unsignedBigInteger('sales_id')->nullable();
+
             $table->timestamps();
+
+            // FK ke tabel sales (pastikan tabel sales sudah dibuat duluan)
+            $table->foreign('sales_id')
+                  ->references('sales_id')
+                  ->on('sales')
+                  ->nullOnDelete()
+                  ->cascadeOnUpdate();
+
+            // Menjaga relasi 1:1 -> satu sales hanya boleh punya satu akun
+            $table->unique('sales_id');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

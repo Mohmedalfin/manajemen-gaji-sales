@@ -1,63 +1,73 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+namespace Database\Factories;
 
-return new class extends Migration
+use App\Models\User;
+use App\Models\Sales; // Import Model Sales
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash; // Gunakan Hash untuk password
+
+class UserFactory extends Factory
 {
     /**
-     * Run the migrations.
+     * Nama Model yang sesuai dengan Factory ini.
+     *
+     * @var string
      */
-    public function up(): void
-    {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id('user_id'); // PK
-
-            $table->string('username', 50)->unique();
-            $table->string('password_hash', 255);
-
-            $table->string('role', 10); // Admin / Sales
-
-            // Untuk Admin bisa NULL, untuk role Sales harus terisi
-            $table->unsignedBigInteger('sales_id')->nullable();
-
-            $table->timestamps();
-
-            // FK ke tabel sales (pastikan tabel sales sudah dibuat duluan)
-            $table->foreign('sales_id')
-                  ->references('sales_id')
-                  ->on('sales')
-                  ->nullOnDelete()
-                  ->cascadeOnUpdate();
-
-            // Menjaga relasi 1:1 -> satu sales hanya boleh punya satu akun
-            $table->unique('sales_id');
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
-        });
-    }
+    protected $model = User::class;
 
     /**
-     * Reverse the migrations.
+     * Definisikan state default Model (Default kita jadikan Sales).
+     *
+     * @return array<string, mixed>
      */
-    public function down(): void
+    public function definition(): array
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
-        Schema::dropIfExists('sessions');
+        return [
+            // Pastikan Anda telah mengganti 'password_hash' menjadi 'password' di migration
+            // jika menggunakan Auth Laravel standar. Saya asumsikan Anda menggunakan 'password_hash'.
+            'password_hash' => Hash::make('password'), // Password default: 'password'
+            'username' => $this->faker->unique()->userName(),
+            
+            // Default diatur sebagai Sales, ID Sales akan diatur di state sales() di bawah
+            'role' => 'sales', 
+            'sales_id' => null, // Dibuat NULL dulu, diisi saat state sales() dipanggil.
+            
+            'created_at' => now(),
+            'updated_at' => now(),
+        ];
     }
-};
+    
+    // --- STATE SPESIFIK ---
+
+    /**
+     * State untuk User dengan role Admin.
+     * Admin tidak memiliki sales_id.
+     */
+    public function admin(): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'username' => 'admin_' . $this->faker->unique()->randomNumber(4),
+            'role' => 'admin',
+            'sales_id' => null, // Penting: harus NULL
+        ]);
+    }
+    
+    /**
+     * State untuk User dengan role Sales.
+     * Sales HARUS memiliki relasi 1:1 ke tabel sales.
+     * Ini adalah logika yang harus Anda gunakan di Seeder.
+     *
+     * @param Sales|null $sales
+     */
+    public function forSales(Sales $sales = null): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'username' => 'sales_' . $this->faker->unique()->randomNumber(4),
+            'role' => 'sales',
+            // Jika objek Sales diberikan, ambil PK-nya, jika tidak, buat Sales baru
+            'sales_id' => $sales ? $sales->sales_id : Sales::factory()->create()->sales_id,
+        ]);
+    }
+}

@@ -2,43 +2,66 @@
 
 namespace Database\Factories;
 
+use App\Models\User;
+use App\Models\Sales; 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash; 
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * Nama Model yang sesuai dengan Factory ini.
+     *
+     * @var string
      */
-    protected static ?string $password;
+    protected $model = User::class;
 
     /**
-     * Define the model's default state.
+     * Definisikan state default Model (Default kita jadikan Sales).
      *
      * @return array<string, mixed>
      */
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'password_hash' => Hash::make('password'), // Password default: 'password'
+            'username' => $this->faker->unique()->userName(),
+            
+            'role' => 'sales', 
+            'sales_id' => null, 
+            
+            'created_at' => now(),
+            'updated_at' => now(),
         ];
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * State untuk User dengan role Admin.
+     * Admin tidak memiliki sales_id.
      */
-    public function unverified(): static
+    public function admin(): Factory
     {
         return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
+            'username' => 'admin_' . $this->faker->unique()->randomNumber(4),
+            'role' => 'admin',
+            'sales_id' => null, 
+        ]);
+    }
+    
+    /**
+     * State untuk User dengan role Sales.
+     * Sales HARUS memiliki relasi 1:1 ke tabel sales.
+     * Ini adalah logika yang harus Anda gunakan di Seeder.
+     *
+     * @param Sales|null $sales
+     */
+    public function forSales(Sales $sales = null): Factory
+    {
+        return $this->state(fn (array $attributes) => [
+            'username' => 'sales_' . $this->faker->unique()->randomNumber(4),
+            'role' => 'sales',
+            'sales_id' => $sales ? $sales->sales_id : Sales::factory()->create()->sales_id,
         ]);
     }
 }

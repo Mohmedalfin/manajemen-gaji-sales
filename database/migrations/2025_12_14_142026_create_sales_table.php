@@ -21,7 +21,6 @@ return new class extends Migration
             $table->decimal('target_penjualan_bln', 10, 2)->default(0);
 
             $table->boolean('status_aktif')->default(true);
-
             $table->timestamps();
 
             $table->index('jabatan');

@@ -49,4 +49,23 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Sales::class, 'sales_id', 'sales_id');
     }
+
+    // Helper Method
+    public function isAdmin()
+    {
+        // Asumsi kolom role di database berisi 'admin'
+        return $this->role === 'admin';
+    }
+
+    public function isSales()
+    {
+        // Asumsi kolom role di database berisi 'sales'
+        return $this->role === 'sales';
+    }
+
+    // Relasi ke Sales Profile
+    public function salesProfile()
+    {
+        return $this->hasOne(Sales::class, 'user_id'); // Sesuaikan foreign key jika perlu
+    }
 }

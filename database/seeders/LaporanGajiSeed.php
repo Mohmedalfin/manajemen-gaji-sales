@@ -4,18 +4,14 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\Sales;
 
-
-class SalesSeed extends Seeder
+class LaporanGajiSeed extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Sales::factory(50)->create(); 
-
-        Sales::factory(10)->junior()->create();
+        //
     }
 }

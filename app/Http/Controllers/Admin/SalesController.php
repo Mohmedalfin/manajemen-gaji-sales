@@ -1,16 +1,15 @@
 <?php
-
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Sales;
 
 class SalesController extends Controller
 {
-    // Method untuk menampilkan halaman index Data Sales
     public function index()
     {
-        // $sales = Sales::all();
-        return view('admin.data-sales');  // Pastikan ada view di resources/views/admin/sales/index.blade.php
+        $sales = Sales::orderByDesc('id')->paginate(20);
+        return view('admin.data-sales', compact('sales'));     
     }
 }

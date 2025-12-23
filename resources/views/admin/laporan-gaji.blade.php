@@ -6,11 +6,13 @@
 
 <div class="space-y-6"> 
 
-    {{-- 1. Filter Periode (UPDATED: STYLE SAMA DENGAN DASHBOARD) --}}
-    <div class="relative bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 mb-10 text-white shadow-lg overflow-hidden">
+    {{-- 1. Filter Periode (FIXED: Dropdown tidak terpotong) --}}
+    <div class="relative bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl p-6 mb-10 text-white shadow-lg">
         
-        {{-- Elemen Dekorasi Background (Sama dengan Dashboard) --}}
-        <div class="absolute right-0 top-0 h-full w-1/3 bg-white opacity-10 transform skew-x-12 translate-x-10"></div>
+        {{-- Elemen Dekorasi Background - Sekarang dibungkus agar overflow-hidden hanya berlaku di sini --}}
+        <div class="absolute inset-0 overflow-hidden rounded-2xl pointer-events-none">
+            <div class="absolute right-0 top-0 h-full w-1/3 bg-white opacity-10 transform skew-x-12 translate-x-10"></div>
+        </div>
 
         {{-- Wrapper Konten (z-10 agar di atas background) --}}
         <div class="relative z-10">
@@ -29,26 +31,26 @@
                 <div class="flex-1 min-w-[100px] relative dropdown-container" id="dropdownBulan">
                     <label for="bulan" class="text-sm font-semibold block mb-1">Bulan</label>
                     
-                    <div class="w-full text-blue-600 bg-white border-none rounded-xl py-2 px-4 text-base shadow-inner flex justify-between items-center cursor-pointer dropdown-trigger focus:rounded-b-none"> 
+                    <div class="w-full text-blue-600 bg-white border-none rounded-xl py-2 px-4 text-base shadow-inner flex justify-between items-center cursor-pointer dropdown-trigger"> 
                         <span class="dropdown-selected-value">Desember</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 dropdown-arrow transition duration-150">
                             <path d="m6 9 6 6 6-6"/>
                         </svg>
                     </div>
-                    <ul class="absolute z-10 w-full mt-0 bg-white rounded-xl rounded-t-none border border-gray-200 border-t-0 hidden dropdown-options-list max-h-40 overflow-y-auto">
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="januari">Januari</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="februari">Februari</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="maret">Maret</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="april">April</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="mei">Mei</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="juni">Juni</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="juli">Juli</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="agustus">Agustus</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="september">September</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="oktober">Oktober</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="november">November</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="desember">Desember</li>
-                    </ul>
+                    {{-- Z-50 agar melayang di atas elemen lain --}}
+                    <ul class="absolute left-0 z-50 w-full mt-1 bg-white rounded-xl border border-gray-200 shadow-xl hidden dropdown-options-list max-h-40 overflow-y-auto">
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="januari">Januari</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="februari">Februari</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="maret">Maret</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="april">April</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="mei">Mei</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="juni">Juni</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="juli">Juli</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="agustus">Agustus</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="september">September</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="oktober">Oktober</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="november">November</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="desember">Desember</li>                    </ul>
                     <input type="hidden" name="bulan" id="bulan-input" value="desember">
                 </div>
                 
@@ -56,28 +58,25 @@
                 <div class="flex-1 min-w-[100px] relative dropdown-container" id="dropdownTahun">
                     <label for="tahun" class="text-sm font-semibold block mb-1">Tahun</label>
                     
-                    <div class="w-full text-blue-600 bg-white border-none rounded-xl py-2 px-4 text-base shadow-inner flex justify-between items-center cursor-pointer dropdown-trigger focus:rounded-b-none">
+                    <div class="w-full text-blue-600 bg-white border-none rounded-xl py-2 px-4 text-base shadow-inner flex justify-between items-center cursor-pointer dropdown-trigger">
                         <span class="dropdown-selected-value">2025</span>
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 dropdown-arrow transition duration-150">
                             <path d="m6 9 6 6 6-6"/>
                         </svg>
                     </div>
 
-                    <ul class="absolute z-10 w-full mt-0 bg-white rounded-xl rounded-t-none border border-gray-200 border-t-0 hidden dropdown-options-list max-h-40 overflow-y-auto">
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="2025">2025</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="2024">2024</li>
-                        <li class="px-4 py-1 hover:bg-gray-100 cursor-pointer text-gray-800" data-value="2023">2023</li>
+                    <ul class="absolute left-0 z-50 w-full mt-1 bg-white rounded-xl border border-gray-200 shadow-xl hidden dropdown-options-list max-h-40 overflow-y-auto">
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="2025">2025</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="2024">2024</li>
+                        <li class="px-4 py-2 hover:bg-blue-50 cursor-pointer text-gray-800" data-value="2023">2023</li>
                     </ul>
                     <input type="hidden" name="tahun" id="tahun-input" value="2025">
                 </div>
 
                 {{-- Tombol Export --}}
-                <button class="flex-1 flex items-center justify-center space-x-2 
-                            bg-green-600 text-white font-semibold 
-                            py-2 px-6 rounded-xl 
-                            transition duration-150 whitespace-nowrap hover:bg-green-700 shadow-md">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m-3-3h6m-7 6h12a2 2 0 002-2V7a2 2 0 00-2-2H9a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                    <span>Export ke Excel</span>
+                <button class="flex-1 flex items-center justify-center space-x-2 bg-green-600 text-white font-semibold py-2 px-6 rounded-xl transition duration-150 hover:bg-green-700 shadow-md h-[42px]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m-3-3h6m-7 6h12a2 2 0 002-2V7a2 2 0 00-2-2H9a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <span>Export Excel</span>
                 </button>
             </div>
         </div>
@@ -145,13 +144,6 @@
                         // Data sampel karyawan sesuai desain
                         $gajiData = [
                             ['name' => 'Jane Cooper', 'id' => '0001', 'pokok' => '8.500.000', 'transaksi' => '157 kali', 'unit' => '780 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                            ['name' => 'Floyd Miles', 'id' => '0002', 'pokok' => '8.500.000', 'transaksi' => '123 kali', 'unit' => '712 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                            ['name' => 'Ronald Richards', 'id' => '0003', 'pokok' => '8.500.000', 'transaksi' => '111 kali', 'unit' => '671 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                            ['name' => 'Marvin McKinney', 'id' => '0004', 'pokok' => '6.500.000', 'transaksi' => '122 kali', 'unit' => '680 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                            ['name' => 'Jerome Bell', 'id' => '0005', 'pokok' => '6.500.000', 'transaksi' => '112 kali', 'unit' => '800 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                            ['name' => 'Kathryn Murphy', 'id' => '0006', 'pokok' => '6.500.000', 'transaksi' => '145 kali', 'unit' => '745 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                            ['name' => 'Jacob Jones', 'id' => '0007', 'pokok' => '4.500.000', 'transaksi' => '134 kali', 'unit' => '728 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                            ['name' => 'Kristin Watson', 'id' => '0008', 'pokok' => '4.500.000', 'transaksi' => '100 kali', 'unit' => '585 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
                         ];
                     @endphp
 

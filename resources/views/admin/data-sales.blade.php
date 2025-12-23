@@ -1,5 +1,4 @@
 {{-- resources/views/admin/data-sales.blade.php --}}
-
 @extends('layouts.admin')
 
 @section('content')
@@ -30,6 +29,7 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kontak</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Posisi</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Gaji Pokok</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Target Penjualan</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Bergabung</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
@@ -55,157 +55,63 @@
                 @endphp
                 
                 {{-- Data Jane Cooper --}}
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Jane Cooper</div>
-                        <div class="text-xs text-gray-500">ID: 0001</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@janecooper</div>
-                        <div class="text-xs text-gray-500">(225) 555-0118</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Senior Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">15/03/2023</td>
-                    {!! $actionTpl !!}
-                </tr>
-                
-                {{-- Data Floyd Miles --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Floyd Miles</div>
-                        <div class="text-xs text-gray-500">ID: 0002</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@flyodmiles</div>
-                        <div class="text-xs text-gray-500">(205) 555-0100</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Senior Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">12/04/2023</td>
-                    {!! $actionTpl !!}
-                </tr>
-                
-                {{-- Data Ronald McKinney --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Ronald McKinney</div>
-                        <div class="text-xs text-gray-500">ID: 0003</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@ronaldrich</div>
-                        <div class="text-xs text-gray-500">(302) 555-0107</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Senior Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">24/05/2023</td>
-                    {!! $actionTpl !!}
-                </tr>
+                @forelse ($sales as $item)
+                    <tr>
+                        {{-- Nama + ID --}}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <div class="font-semibold">{{ $item->nama_lengkap }}</div>
+                            <div class="text-xs text-gray-500">{{ $item->kode_sales }}</div>
+                        </td>
 
-                 {{-- Data Marvin McKinney --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Marvin McKinney</div>
-                        <div class="text-xs text-gray-500">ID: 0004</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@marvinmc</div>
-                        <div class="text-xs text-gray-500">(292) 555-0126</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Executive Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">25/01/2024</td>
-                    {!! $actionTpl !!}
-                </tr>
+                        {{-- Kontak --}}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <div class="text-xs text-gray-500">
+                                {{ $item->kontak ?? '-' }}
+                            </div>
+                        </td>
 
-                 {{-- Data Jerome Bell --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Jerome Bell</div>
-                        <div class="text-xs text-gray-500">ID: 0005</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@jeromeb</div>
-                        <div class="text-xs text-gray-500">(629) 555-0129</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Executive Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 6.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">01/04/2024</td>
-                    {!! $actionTpl !!}
-                </tr>
-                 
-                 {{-- Data Kathryn Murphy --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Kathryn Murphy</div>
-                        <div class="text-xs text-gray-500">ID: 0006</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@kathmur</div>
-                        <div class="text-xs text-gray-500">(406) 555-0120</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Executive Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 6.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">11/05/2024</td>
-                    {!! $actionTpl !!}
-                </tr>
-                 
-                 {{-- Data Jacob Jones --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Jacob Jones</div>
-                        <div class="text-xs text-gray-500">ID: 0007</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@jacobjojo</div>
-                        <div class="text-xs text-gray-500">(208) 555-0112</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Junior Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 4.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">15/03/2025</td>
-                    {!! $actionTpl !!}
-                </tr>
-                 
-                 {{-- Data Kristin Watson --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="font-semibold">Kristin Watson</div>
-                        <div class="text-xs text-gray-500">ID: 0008</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                        <div class="text-blue-600">@kristinwat</div>
-                        <div class="text-xs text-gray-500">(704) 555-0127</div>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Junior Sales</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 4.500.000</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Aktif</span>
-                    </td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600">12/04/2025</td>
-                    {!! $actionTpl !!}
-                </tr>
+                        {{-- Jabatan --}}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{ $item->jabatan }}
+                        </td>
 
+                        {{-- Gaji --}}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">
+                            Rp {{ number_format($item->gaji_pokok, 0, ',', '.') }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">
+                            Rp {{ number_format($item->target_penjualan_bln, 0, ',', '.') }}
+                        </td>
+
+                        {{-- Status --}}
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @if ($item->status_aktif)
+                                <span class="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                    Aktif
+                                </span>
+                            @else
+                                <span class="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-red-100 text-red-800">
+                                    Nonaktif
+                                </span>
+                            @endif
+                        </td>
+
+                        {{-- Created At --}}
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                            {{ $item->created_at->format('d/m/Y') }}
+                        </td>
+
+                        {{-- Action --}}
+                        {!! $actionTpl !!}
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
+                            Tidak ada data sales
+                        </td>
+                    </tr>
+                @endforelse
             </tbody>
         </table>
     </div>

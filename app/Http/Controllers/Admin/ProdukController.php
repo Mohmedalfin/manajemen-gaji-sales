@@ -4,11 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Barang;
 
 class ProdukController extends Controller
 {
     public function index()
     {
-        return view('admin.data-barang');  // Pastikan view ada di resources/views/admin/produk.blade.php
+        $produk = Barang::orderByDesc('id')->paginate(20);
+        return view('admin.data-barang', compact('produk'));  
     }
 }

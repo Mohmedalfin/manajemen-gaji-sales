@@ -13,6 +13,7 @@ class SalesFactory extends Factory
      * @var string
      */
     protected $model = Sales::class;
+    private static $urutan = 1;
 
     /**
      * Definisikan state default Model.
@@ -21,10 +22,11 @@ class SalesFactory extends Factory
      */
     public function definition(): array
     {
-        // Tentukan secara acak, tapi gunakan Junior, Middle, Senior paling sering
+        $currentNumber = self::$urutan++;
+        $kodeSales = 'SLS-' . str_pad($currentNumber, 3, '0', STR_PAD_LEFT);
+
         $jabatan = $this->faker->randomElement(['Junior', 'Middle', 'Senior']);
-        
-        // Atur Gaji dan Target berdasarkan Jabatan yang terpilih
+
         $gajiPokok = 0.00;
         $targetPenjualan = 0.00;
 
@@ -47,7 +49,7 @@ class SalesFactory extends Factory
         }
 
         return [
-            // Menggunakan bahasa Indonesia yang terlihat realistis
+            'kode_sales' => $kodeSales,
             'nama_lengkap' => $this->faker->firstName() . ' ' . $this->faker->lastName(), 
             'kontak' => $this->faker->numerify('08##########'),
             'jabatan' => $jabatan, 

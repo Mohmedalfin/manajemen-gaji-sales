@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Database\Factories\TransaksiFactory;
 
 class TransaksiPenjualan extends Model
 {
@@ -13,6 +14,7 @@ class TransaksiPenjualan extends Model
     protected $primaryKey = 'transaksi_id';
 
     protected $fillable = [
+        'kode_transaksi',
         'tanggal_transaksi',
         'sales_id',
         'produk_id',
@@ -27,6 +29,11 @@ class TransaksiPenjualan extends Model
         'harga_total' => 'decimal:2',
         'komisi_yang_dihitung' => 'decimal:2',
     ];
+
+    protected static function newFactory()
+    {
+        return TransaksiFactory::new();
+    }
 
     public function sales()
     {

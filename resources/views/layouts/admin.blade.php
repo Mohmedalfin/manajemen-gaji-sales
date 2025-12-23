@@ -10,29 +10,20 @@
 
 <div class="flex min-h-screen h-screen overflow-hidden">
     
-    {{-- BAGIAN 1: SIDEBAR DINAMIS --}}
-    {{-- Cek apakah rute saat ini adalah halaman profil atau password admin --}}
-    @if (request()->routeIs('admin.profil.*') || request()->routeIs('admin.password.*'))
-        {{-- Load sidebar profil khusus Admin --}}
+    @if (request()->routeIs('admin.profile.*') || request()->routeIs('admin.password.*'))
         @include('admin.partials.sidebar-profil')
     @else
-        {{-- Load sidebar utama Admin --}}
         @include('admin.partials.sidebar')
     @endif
     
     <main class="flex-1 p-8 overflow-y-auto">
         
-        {{-- BAGIAN 2: HEADER DINAMIS --}}
-        {{-- Header HILANG jika sedang di halaman profil atau password --}}
-        @if (!request()->routeIs('admin.profil.*') && !request()->routeIs('admin.password.*'))
+        @if (!request()->routeIs('admin.profile.*') && !request()->routeIs('admin.password.*'))
         
             <header class="flex justify-between items-center mb-10">
                 
-                {{-- Placeholder kiri --}}
-                <div class="w-10 h-10"></div> 
-                
-                {{-- KOTAK TELUSURI --}}
-                <div class="relative w-full max-w-lg mx-auto"> 
+            <div class="w-0 h-10"></div> 
+                <div class="relative w-full mx-auto mr-8"> 
                     <input type="text" placeholder="Telusuri" 
                         class="w-full p-3 pl-4 
                                border-2 border-blue-400  

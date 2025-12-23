@@ -33,109 +33,48 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Produk</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">SKU</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kategori</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Komisi</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga Jual</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Stok</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
                 
-                {{-- Data Jane Cooper / PRD-001 --}}
-                <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Jane Cooper</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-001</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 1</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">5%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Tersedia</span>
-                    </td>
-                </tr>
-                
-                {{-- Data Floyd Miles / PRD-002 --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Floyd Miles</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-002</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 1</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">4.5%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Habis</span>
-                    </td>
-                </tr>
-                
-                {{-- Data Ronald Richards / PRD-003 --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Ronald Richards</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-003</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 2</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 9.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">4%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Habis</span>
-                    </td>
-                </tr>
+            @foreach ($produk as $item)
+            <tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    {{ $item->nama_produk }}
+                </td>
 
-                 {{-- Data Marvin McKinney / PRD-004 --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Marvin McKinney</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-004</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 2</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">6%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Tersedia</span>
-                    </td>
-                </tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    {{ $item->kode_produk }}
+                </td>
 
-                 {{-- Data Jerome Bell / PRD-005 --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Jerome Bell</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-005</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 3</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">5%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Tersedia</span>
-                    </td>
-                </tr>
-                 
-                 {{-- Data Kathryn Murphy / PRD-006 --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Kathryn Murphy</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-006</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 3</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">4%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Tersedia</span>
-                    </td>
-                </tr>
-                 
-                 {{-- Data Jacob Jones / PRD-007 --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Jacob Jones</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-007</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 4</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">6%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Tersedia</span>
-                    </td>
-                </tr>
-                 
-                 {{-- Data Kristin Watson / PRD-008 --}}
-                 <tr>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Kristin Watson</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">PRD-008</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Kategori 4</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp 8.500.00</td>
-                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">5%</td>
-                    <td class="px-6 py-4 whitespace-nowrap">
-                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Habis</span>
-                    </td>
-                </tr>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                    Umum
+                </td>
 
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">
+                    Rp {{ number_format($item->harga_jual_unit, 0, ',', '.') }}
+                </td>
+
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700 font-medium">
+                    {{ $item->stok }} Unit
+                </td>
+
+                <td class="px-6 py-4 whitespace-nowrap">
+                    @if($item->stok > 0)
+                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                            Tersedia
+                        </span>
+                    @else
+                        <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">
+                            Habis
+                        </span>
+                    @endif
+                </td>
+            </tr>
+            @endforeach
             </tbody>
         </table>
     </div>

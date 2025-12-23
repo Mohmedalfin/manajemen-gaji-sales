@@ -25,9 +25,9 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'password_hash' => Hash::make('password'), // Password default: 'password'
             'username' => $this->faker->unique()->userName(),
-            
+            'password_hash' => Hash::make('password'), // Password default: 'password'
+
             'role' => 'sales', 
             'sales_id' => null, 
             

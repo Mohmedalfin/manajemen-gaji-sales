@@ -12,34 +12,27 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('transaksi_penjualan', function (Blueprint $table) {
-            $table->id('transaksi_id');
+            $table->id();
 
+            $table->string('kode_transaksi', 20)->uniqid();
             $table->date('tanggal_transaksi');
 
-            // FK ke sales.id
             $table->foreignId('sales_id')
                 ->constrained('sales')
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
-
-            // FK ke produk.produk_id
-            $table->string('produk_id', 10);
+            
+            $table->foreignId('produk_id')
+                ->constrained('produk')
+                ->restrictOnDelete()
+                ->cascadeOnUpdate();
 
             $table->integer('jumlah_unit')->default(0);
-
             $table->decimal('harga_total', 10, 2)->default(0);
-            $table->decimal('komisi_yang_dihitung', 10, 2)->default(0);
 
             $table->timestamps();
 
-            $table->index(['tanggal_transaksi', 'sales_id']);
-            $table->index('produk_id');
-
-            $table->foreign('produk_id')
-                ->references('produk_id')
-                ->on('produk')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
+            // $table->index(['tanggal_transaksi', 'sales_id']);
         });
     }
 

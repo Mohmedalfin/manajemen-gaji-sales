@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id(); 
 
+            $table->string('kode_sales', 20)->unique(); // kode bisnis
             $table->string('nama_lengkap', 100);
             $table->string('kontak', 50);
             $table->string('jabatan', 50); 

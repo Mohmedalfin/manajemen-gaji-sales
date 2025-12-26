@@ -5,12 +5,14 @@ namespace App\Models;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 
 class Sales extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'sales_id';
+    protected $primaryKey = 'id';
     public $incrementing = true;
     protected $keyType = 'int';
 
@@ -31,38 +33,51 @@ class Sales extends Model
 
     protected static function booted()
     {
-        // 1. EVENT 'CREATING'
-        // Dijalankan SEBELUM data disimpan ke database.
-        // Tugas: Membuat Kode Sales Otomatis (SLS-001, SLS-002, dst)
         static::creating(function ($sales) {
-            
-            // Cek kode sales terakhir untuk menentukan nomor urut
-            $lastSales = Sales::orderBy('sales_id', 'desc')->first();
+            $lastSales = Sales::orderBy('id', 'desc')->first();
             
             if (!$lastSales) {
                 $number = 1;
             } else {
-                // Ambil angka dari kode terakhir (misal SLS-015 -> ambil 15)
-                // Kita ambil 3 digit terakhir lalu tambah 1
                 $number = intval(substr($lastSales->kode_sales, -3)) + 1;
             }
 
-            // Format ulang jadi 3 digit (001, 002, 010, dst)
             $sales->kode_sales = 'SLS-' . str_pad($number, 3, '0', STR_PAD_LEFT);
         });
 
         static::created(function ($sales) {
-            
             User::create([
                 'username'      => $sales->kode_sales, 
-                
                 'password_hash' => Hash::make('sales'), 
-                
                 'role'          => 'sales',
-                
                 'sales_id'      => $sales->sales_id, 
             ]);
-            
+
+            // 2. Persiapkan Kirim WhatsApp
+            $token = 'kgeU6DB4KmFEnVjFyDA4'; 
+            $target = $sales->kontak;
+
+            if (str_starts_with($target, '0')) {
+                $target = '62' . substr($target, 1);
+            }
+
+            $pesan = "Halo *{$sales->nama_lengkap}*,\n\n" .
+                    "Akun Sales Anda telah berhasil didaftarkan.\n" .
+                    "Username: *{$sales->kode_sales}*\n" .
+                    "Password: *sales*\n\n" .
+                    "Silakan gunakan akun ini untuk login ke aplikasi.";
+
+            // 3. Kirim via API Fonnte (Menggunakan HTTP Client Laravel)
+            try {
+                Http::withHeaders([
+                    'Authorization' => $token,
+                ])->post('https://api.fonnte.com/send', [
+                    'target' => $target,
+                    'message' => $pesan,
+                ]);
+            } catch (\Exception $e) {
+                \Illuminate\Support\Facades\Log::error("Gagal kirim WA ke {$target}: " . $e->getMessage());
+            }   
         });
     }
 

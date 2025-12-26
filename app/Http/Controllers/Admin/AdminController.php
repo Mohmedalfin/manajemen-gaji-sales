@@ -25,8 +25,6 @@ class AdminController extends Controller
             ->whereYear('tanggal_transaksi', $tahunIni)
             ->sum('harga_total');  
 
-       
-
         return view('admin.dashboard', compact('totalSales', 'totalUnitBulanIni', 'totalPenjualan'));  
     }
 }

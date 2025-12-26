@@ -6,9 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('transaksi_penjualan', function (Blueprint $table) {
@@ -29,17 +26,13 @@ return new class extends Migration
 
             $table->integer('jumlah_unit')->default(0);
             $table->decimal('harga_total', 10, 2)->default(0);
+            $table->decimal('komisi_penjualan', 10, 2)->default(0);
 
             $table->timestamps();
 
-            // $table->index(['tanggal_transaksi', 'sales_id']);
         });
     }
 
-
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('transaksi_penjualan');

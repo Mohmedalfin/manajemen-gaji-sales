@@ -35,9 +35,20 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // Dashboard
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
-    // Master Data
+    // Master Data Admin -> Sales
     Route::resource('sales', SalesController::class);
+    Route::resource('admin/sales', SalesController::class)->names([
+         'store' => 'admin.sales.store',
+    ]);
+    Route::put('/sales/{sale}', [SalesController::class, 'update'])->name('sales.update');
+    Route::delete('/sales/{sale}', [SalesController::class, 'destroy'])->name('sales.destroy');
+
+    // Master Data Admin -> Barang
     Route::resource('barang', ProdukController::class);
+    Route::resource('admin/barang', ProdukController::class)->names([
+        'store' => 'admin.barang.store',
+    ]);
+
 
     // Laporan
     Route::resource('laporan-gaji', LaporanGajiController::class);
@@ -49,7 +60,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         ->group(function () {
             Route::get('/', 'viewProfile')->name('index');
             Route::get('/password', 'viewPassword')->name('password.index');
-        });
+    });
 });
 
 

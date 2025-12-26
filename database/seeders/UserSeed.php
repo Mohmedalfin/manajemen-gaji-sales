@@ -2,27 +2,29 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Sales;
+use Illuminate\Support\Facades\Hash;
 
 class UserSeed extends Seeder
 {
     public function run(): void
     {
-        $this->call(SalesSeed::class); // Pastikan data Sales sudah ada
+        // 1. Jalankan SalesSeed terlebih dahulu
+        // Karena di Model Sales sudah ada static::created -> User::create,
+        // Maka 60 User Sales otomatis sudah terbuat saat baris ini dijalankan.
+        $this->call(SalesSeed::class); 
 
+        // 2. Membuat satu Admin dengan password: password
         User::factory()->admin()->create([
-            'username' => 'admin', 
+            'username' => 'admin',
+            'password_hash' => Hash::make('password'), // Set password manual
+            'sales_id' => null, // Admin tidak punya sales_id
         ]);
 
-        $salesCollection = Sales::limit(10)->get();
-
-        foreach ($salesCollection as $sales) {
-            User::factory()->forSales($sales)->create();
-        }
-
-        User::factory(2)->admin()->create();
+        // Catatan: 
+        // Anda TIDAK PERLU lagi melakukan foreach ($salesCollection as $sales) 
+        // karena User untuk Sales sudah dibuat otomatis oleh Model Event 'created' di Sales.php
     }
 }

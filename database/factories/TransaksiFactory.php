@@ -47,17 +47,19 @@ class TransaksiFactory extends Factory
 
         // Kalikan
         $hargaTotal = $hargaSatuan * $jumlahUnit;
+        $komisiPenjualan = $hargaTotal * 0.05;
 
         return [
             'kode_transaksi'    => 'TRX-' . strtoupper(Str::random(8)),
             'tanggal_transaksi' => $this->faker->dateTimeThisMonth(), // Transaksi bulan ini
             
             // KUNCI JAWABAN ANDA DISINI:
-            'sales_id'          => $sales->id,   // Pakai ID dari sales yg diambil di atas
-            'produk_id'         => $barang->id,  // Pakai ID dari produk yg diambil di atas
+            'sales_id'          => $sales->id,  
+            'produk_id'         => $barang->id,  
             
             'jumlah_unit'       => $jumlahUnit,
             'harga_total'       => $hargaTotal,
+            'komisi_penjualan'  => $komisiPenjualan
         ];
     }
 }

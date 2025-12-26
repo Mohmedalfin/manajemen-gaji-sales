@@ -70,7 +70,4 @@
             <div class="h-8"></div> 
         </nav>
     </div>
-    
-    {{-- Tombol Keluar --}}
-
 </aside>

@@ -36,7 +36,7 @@
                 </svg>
             </div>
         </div>
-        <div class="text-2xl font-bold text-gray-800">{{ $totalTransaksi }}</div>
+        <div class="text-3xl font-bold text-gray-800">{{ $totalTransaksi }} <span class="text-xl font-medium text-gray-500">Transaksi</span></div>
     </div>
 
     {{-- Card 2: Jumlah Unit --}}
@@ -116,30 +116,41 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                
                 {{-- Data Dummy --}}
-                @foreach ($pertransaksi as $trx)
-                    <tr>
+                @foreach ($topSales as $index => $trx)
+                    <tr class="hover:bg-gray-50 transition">
+                        
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                            {{ $trx->sales->nama_lengkap ?? '-' }}
+                            <div class="flex items-center">
+                                <span class="flex items-center justify-center w-6 h-6 rounded-full {{ $index == 0 ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-500' }} text-xs font-bold mr-3">
+                                    {{ $index + 1 }}
+                                </span>
+                                {{ $trx->sales->nama_lengkap ?? 'Sales Terhapus' }}
+                            </div>
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-800">
-                            {{ $trx->jumlah_unit }} Unit
+                            {{ $trx->total_unit }} Unit 
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-semibold">
-                            Rp {{ number_format($trx->harga_total, 0, ',', '.') }}
+                            Rp {{ number_format($trx->total_omset, 0, ',', '.') }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-semibold">
-                            Rp {{ number_format($trx->komisi_penjualan, 0, ',', '.') }}
+                            Rp {{ number_format($trx->total_komisi, 0, ',', '.') }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap">
-                            <span class="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-800">
-                                Aktif
-                            </span>
+                            @if($index == 0)
+                                <span class="px-3 py-1 inline-flex text-xs font-bold rounded-full bg-yellow-100 text-yellow-800 border border-yellow-200">
+                                    👑 Top Sales
+                                </span>
+                            @else
+                                <span class="px-3 py-1 inline-flex text-xs font-semibold rounded-full bg-green-100 text-green-800">
+                                    Aktif
+                                </span>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -149,7 +160,7 @@
     
     {{-- Footer Pagination --}}
     <div class="mt-4 text-sm text-gray-500">
-        Showing data 1 to 8 of 256k entries
+        Showing data Top Sales
     </div>
 </div>
 

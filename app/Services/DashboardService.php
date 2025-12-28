@@ -15,8 +15,16 @@ class DashboardService
 
         return [
             'totalSales' => Sales::count(),
-            'totalUnitBulanIni' => (clone $queryBulanIni)->sum('jumlah_unit'),
-            'totalPenjualan' => (clone $queryBulanIni)->sum('harga_total'),
-            'totalTransaksi' => (clone $queryBulanIni)->count()        ];
+            'totalUnitBulanIni' => (clone $queryBulanIni)
+                ->where('status_verifikasi', 'approved') 
+                ->sum('jumlah_unit'),
+            'totalPenjualan' => (clone $queryBulanIni)
+                ->where('status_verifikasi', 'approved') 
+                ->sum('harga_total'),
+            'totalTransaksi' => (clone $queryBulanIni)
+                ->where('status_verifikasi', 'approved') 
+                ->count()        
+            
+        ];
     }
 }

@@ -12,7 +12,7 @@
     {{-- Card 1: Jumlah Sales --}}
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
-            <p class="text-gray-500 text-md font-medium">Jumlah Transaksi <span class='text-yellow-500'> Padding</span></p>
+            <p class="text-gray-500 text-md font-medium">Transaksi <span class='text-yellow-500'> Padding</span></p>
             <div class="p-1 bg-blue-100 rounded-lg text-blue-600">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                     <path d="M18 21a8 8 0 0 0-16 0"/>
@@ -25,7 +25,7 @@
     </div>
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
-            <p class="text-gray-500 text-md font-medium">Jumlah Transaksi <span class='text-green-500'> Approved</span></p>
+            <p class="text-gray-500 text-md font-medium">Transaksi <span class='text-green-500'> Approved</span></p>
             <div class="p-1 bg-blue-100 rounded-lg text-blue-600">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                     <path d="M18 21a8 8 0 0 0-16 0"/>
@@ -38,7 +38,7 @@
     </div>
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
-            <p class="text-gray-500 text-md font-medium">Jumlah Transaksi <span class='text-red-500'> Rejected</span></p>
+            <p class="text-gray-500 text-md font-medium">Transaksi <span class='text-red-500'> Rejected</span></p>
             <div class="p-1 bg-blue-100 rounded-lg text-blue-600">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
                     <path d="M18 21a8 8 0 0 0-16 0"/>

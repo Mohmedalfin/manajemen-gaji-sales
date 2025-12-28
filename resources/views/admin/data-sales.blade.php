@@ -214,7 +214,7 @@
     
     {{-- Footer Pagination --}}
     <div class="mt-4 text-sm text-gray-500">
-        Showing data 1 to 8 of 256k entries
+        Showing data Sales
     </div>
 </div>
 

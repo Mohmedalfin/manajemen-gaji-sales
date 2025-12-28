@@ -8,8 +8,6 @@
 
 {{-- CARD STATISTIC SECTION --}}
 <div class="grid grid-cols-3 gap-4 mb-10">
-    
-    {{-- Card 1: Jumlah Sales --}}
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
             <p class="text-gray-500 text-md font-medium">Transaksi <span class='text-yellow-500'> Padding</span></p>
@@ -159,7 +157,7 @@
     
     {{-- Footer Pagination --}}
     <div class="mt-4 text-sm text-gray-500">
-        Showing data 1 to 8 of 256k entries
+        Showing data Transaksi
     </div>
 </div>
 

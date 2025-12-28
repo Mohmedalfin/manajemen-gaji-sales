@@ -1,15 +1,10 @@
 {{-- resources/views/admin/dashboard.blade.php --}}
-
 @extends('layouts.admin')
-
 @section('content')
 
 <h1 class="text-3xl font-bold text-gray-800 mb-8">Statistik Bulan : <span class="font-bold text-blue-500"> {{ now()->translatedFormat('F') }}</span></h1>
 
-{{-- CARD STATISTIC SECTION --}}
 <div class="grid grid-cols-4 gap-6 mb-10">
-    
-    {{-- Card 1: Jumlah Sales --}}
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
             <p class="text-gray-500 text-sm font-medium">Jumlah Sales</p>
@@ -24,7 +19,6 @@
         <div class="text-3xl font-bold text-gray-800">{{ $totalSales }} <span class="text-xl font-medium text-gray-500">Sales</span></div>
     </div>
 
-    {{-- Card 4: Total Gaji --}}
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
             <p class="text-gray-500 text-sm font-medium">Total Transaksi</p>
@@ -39,7 +33,6 @@
         <div class="text-3xl font-bold text-gray-800">{{ $totalTransaksi }} <span class="text-xl font-medium text-gray-500">Transaksi</span></div>
     </div>
 
-    {{-- Card 2: Jumlah Unit --}}
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
             <p class="text-gray-500 text-sm font-medium">Jumlah Unit Terjual</p>
@@ -63,7 +56,6 @@
         <div class="text-3xl font-bold text-gray-800">{{ $totalUnitBulanIni }} <span class="text-xl font-medium text-gray-500">Unit</span></div>
     </div>
 
-    {{-- Card 3: Total Penjualan --}}
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
             <p class="text-gray-500 text-sm font-medium">Total Penjualan</p>
@@ -92,10 +84,8 @@
     <canvas id="salesChart" height="120"></canvas>
 </div>
 
-{{-- SALES TABLE SECTION --}}
 <div class="bg-white p-6 rounded-2xl shadow-lg">
     
-    {{-- Header Tabel & Sort --}}
     <div class="flex justify-between items-center mb-6">
         <div>
             <h2 class="text-xl font-bold text-gray-800">Semua Sales</h2>
@@ -103,7 +93,6 @@
         </div>
     </div>
 
-    {{-- Tabel Data Sales --}}
     <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -116,10 +105,8 @@
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-                {{-- Data Dummy --}}
                 @foreach ($topSales as $index => $trx)
                     <tr class="hover:bg-gray-50 transition">
-                        
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                             <div class="flex items-center">
                                 <span class="flex items-center justify-center w-6 h-6 rounded-full {{ $index == 0 ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-500' }} text-xs font-bold mr-3">
@@ -156,9 +143,7 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
-    
-    {{-- Footer Pagination --}}
+    </div>  
     <div class="mt-4 text-sm text-gray-500">
         Showing data Top Sales
     </div>

@@ -82,44 +82,72 @@
         </div>
     </div>
 
-    {{-- 2. Ringkasan Kartu (Summary Cards) --}}
-    <div class="grid grid-cols-4 gap-6 mb-10"> 
+    @php
+        // Ambil data (default 0 jika null)
+        $valKomisi    = $totalKomisi ?? 0;
+        $valTotalGaji = $totalGaji ?? 0;   // Total Pengeluaran (Gaji + Komisi)
+        $valRevenue   = $totalRevenue ?? 0;
         
-        @php
-            $summaryCards = [
-                ['title' => 'Total Gaji Pokok', 'amount' => 'Rp 5.000.000'],
-                ['title' => 'Total Komisi', 'amount' => 'Rp 5.000.000'],
-                ['title' => 'Total Pengeluaran Gaji', 'amount' => 'Rp 5.000.000'],
-                ['title' => 'Total Revenue', 'amount' => 'Rp 5.000.000'],
-            ];
-            
-            $cardBaseClass = 'bg-white p-6 rounded-xl shadow-md border border-gray-200';
-            $iconContainerClass = 'p-1 bg-blue-100 rounded-lg text-blue-600';
-            
-            // SVG BANKNOTE UNIFIED ICON
-            $banknoteIcon = '
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-                    <rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/>
-                </svg>
-            ';
-        @endphp
+        // Hitung Gaji Pokok
+        $valGajiPokok = $valTotalGaji - $valKomisi;
 
-        @foreach($summaryCards as $card)
-            <div class="{{ $cardBaseClass }}">
-                <div class="flex justify-between items-start mb-2">
-                    <p class="text-gray-500 text-sm font-medium">{{ $card['title'] }}</p>
-                    <div class="{{ $iconContainerClass }}">
-                        {!! $banknoteIcon !!}
-                    </div>
+        // Simpan Icon dalam variable biar kodingan HTML di bawah tidak kepanjangan
+        $iconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><rect width="20" height="12" x="2" y="6" rx="2"/><circle cx="12" cy="12" r="2"/><path d="M6 12h.01M18 12h.01"/></svg>';
+    @endphp
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10"> 
+        
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+            <div class="flex justify-between items-start mb-4">
+                <p class="text-gray-500 text-sm font-semibold uppercase">Total Gaji Pokok</p>
+                <div class="p-1 rounded-lg bg-blue-100 text-blue-600">
+                    {!! $iconSvg !!}
                 </div>
-                <div class="text-2xl font-bold text-gray-800">{{ $card['amount'] }}</div>
             </div>
-        @endforeach
+            <div class="text-2xl font-bold text-gray-800">
+                Rp {{ number_format($valGajiPokok, 0, ',', '.') }}
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+            <div class="flex justify-between items-start mb-4">
+                <p class="text-gray-500 text-sm font-semibold uppercase">Total Komisi</p>
+                <div class="p-1 rounded-lg bg-green-100 text-green-600">
+                    {!! $iconSvg !!}
+                </div>
+            </div>
+            <div class="text-2xl font-bold text-gray-800">
+                Rp {{ number_format($valKomisi, 0, ',', '.') }}
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+            <div class="flex justify-between items-start mb-4">
+                <p class="text-gray-500 text-sm font-semibold uppercase">Total Pengeluaran</p>
+                <div class="p-1 rounded-lg bg-orange-100 text-orange-600">
+                    {!! $iconSvg !!}
+                </div>
+            </div>
+            <div class="text-2xl font-bold text-gray-800">
+                Rp {{ number_format($valTotalGaji, 0, ',', '.') }}
+            </div>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+            <div class="flex justify-between items-start mb-4">
+                <p class="text-gray-500 text-sm font-semibold uppercase">Net Revenue</p>
+                <div class="p-1 rounded-lg bg-purple-100 text-purple-600">
+                    {!! $iconSvg !!}
+                </div>
+            </div>
+            <div class="text-2xl font-bold text-gray-800">
+                Rp {{ number_format($valRevenue, 0, ',', '.') }}
+            </div>
+        </div>
+
     </div>
     
-    {{-- 3. Tabel Detail --}}
     <div class="bg-white p-6 rounded-2xl shadow-lg">
-        
         <div class="mb-6">
             <h2 class="text-xl font-bold text-gray-800">Rekap Gaji Desember 2025</h2>
             <p class="text-sm text-green-600">Detail perhitungan gaji seluruh karyawan sales</p> 
@@ -139,36 +167,51 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    
-                    @php
-                        // Data sampel karyawan sesuai desain
-                        $gajiData = [
-                            ['name' => 'Jane Cooper', 'id' => '0001', 'pokok' => '8.500.000', 'transaksi' => '157 kali', 'unit' => '780 unit', 'penjualan' => '425.000', 'komisi' => '425.000', 'total' => '12.000.000'],
-                        ];
-                    @endphp
-
-                    @foreach($gajiData as $data)
-                    <tr>
+                    @forelse($gajiData as $data)
+                    <tr class="hover:bg-gray-50 transition">
+                        
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                            <div class="font-semibold">{{ $data['name'] }}</div>
-                            <div class="text-xs text-gray-500">ID: {{ $data['id'] }}</div>
+                            <div class="font-semibold">{{ $data->nama_lengkap }}</div>
+                            <div class="text-xs text-gray-500">ID: SALES-{{ str_pad($data->id, 4, '0', STR_PAD_LEFT) }}</div>
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">Rp {{ $data['pokok'] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $data['transaksi'] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">{{ $data['unit'] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">Rp {{ $data['penjualan'] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">Rp {{ $data['komisi'] }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold">Rp {{ $data['total'] }}</td>
-                    </tr>
-                    @endforeach
 
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            Rp {{ number_format($data->gaji_pokok, 0, ',', '.') }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{ $data->total_transaksi }} kali
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                            {{ $data->total_unit }} Unit
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-medium">
+                            Rp {{ number_format($data->total_omset, 0, ',', '.') }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">
+                            Rp {{ number_format($data->total_komisi, 0, ',', '.') }}
+                        </td>
+
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-bold bg-blue-50">
+                            Rp {{ number_format($data->gaji_pokok + $data->total_komisi, 0, ',', '.') }}
+                        </td>
+                    </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="px-6 py-4 text-center text-gray-500">
+                            Belum ada data sales.
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 
-{{-- SCRIPT JAVASCRIPT --}}
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const dropdowns = document.querySelectorAll('.dropdown-container');

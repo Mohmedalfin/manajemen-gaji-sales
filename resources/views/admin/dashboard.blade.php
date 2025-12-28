@@ -24,6 +24,21 @@
         <div class="text-3xl font-bold text-gray-800">{{ $totalSales }} <span class="text-xl font-medium text-gray-500">Sales</span></div>
     </div>
 
+    {{-- Card 4: Total Gaji --}}
+    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
+        <div class="flex justify-between items-start mb-2">
+            <p class="text-gray-500 text-sm font-medium">Total Transaksi</p>
+            <div class="p-1 bg-blue-100 rounded-lg text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
+                    <rect width="20" height="12" x="2" y="6" rx="2"/>
+                    <circle cx="12" cy="12" r="2"/>
+                    <path d="M6 12h.01M18 12h.01"/>
+                </svg>
+            </div>
+        </div>
+        <div class="text-2xl font-bold text-gray-800">{{ $totalTransaksi }}</div>
+    </div>
+
     {{-- Card 2: Jumlah Unit --}}
     <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
         <div class="flex justify-between items-start mb-2">
@@ -66,20 +81,15 @@
         <div class="text-2xl font-bold text-gray-800">Rp {{ number_format($totalPenjualan, 0, ',', '.') }}</div>
     </div>
     
-    {{-- Card 4: Total Gaji --}}
-    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-200">
-        <div class="flex justify-between items-start mb-2">
-            <p class="text-gray-500 text-sm font-medium">Total Gaji</p>
-            <div class="p-1 bg-blue-100 rounded-lg text-blue-600">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5">
-                    <rect width="20" height="12" x="2" y="6" rx="2"/>
-                    <circle cx="12" cy="12" r="2"/>
-                    <path d="M6 12h.01M18 12h.01"/>
-                </svg>
-            </div>
-        </div>
-        <div class="text-2xl font-bold text-gray-800">Rp {{ number_format($totalGaji, 0, ',', '.') }}</div>
-    </div>
+    
+</div>
+
+<div class="bg-white p-6 rounded-xl shadow mb-8">
+    <h3 class="text-sm font-semibold text-gray-700 mb-4">
+        Penjualan Bulanan
+    </h3>
+
+    <canvas id="salesChart" height="120"></canvas>
 </div>
 
 {{-- SALES TABLE SECTION --}}
@@ -89,24 +99,7 @@
     <div class="flex justify-between items-center mb-6">
         <div>
             <h2 class="text-xl font-bold text-gray-800">Semua Sales</h2>
-            <p class="text-sm text-green-600">Anggota aktif</p> 
-        </div>
-        
-        {{-- DROPDOWN SORT BY (Menggunakan Gaya Baru) --}}
-        <div class="relative">
-            {{-- Tombol Trigger --}}
-            <button id="sortButton" class="w-56 bg-white border border-gray-300 rounded-lg px-4 py-2 flex items-center justify-between cursor-pointer hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <span class="text-xs text-gray-600">Sort by : <span id="sortLabel" class="font-bold text-gray-800">Newest</span></span>
-                {{-- Icon Chevron --}}
-                <svg id="sortIcon" class="w-3 h-3 text-gray-500 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-            </button>
-
-            {{-- Menu Dropdown --}}
-            <div id="sortDropdown" class="hidden absolute right-0 mt-2 w-full bg-white rounded-xl shadow-xl border border-gray-100 z-20 overflow-hidden transform transition-all duration-200 origin-top-right">
-                <a href="#" onclick="selectSort('Newest')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Newest</a>
-                <a href="#" onclick="selectSort('Oldest')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Oldest</a>
-                <a href="#" onclick="selectSort('Highest Sales')" class="block px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition">Highest Sales</a>
-            </div>
+            <p class="text-sm text-green-600">Rank sales dengan penjualan terbesar</p> 
         </div>
     </div>
 
@@ -117,10 +110,9 @@
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Customer Name</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unit Terjual</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal/Waktu Transaksi</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Penjualan</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Komisi</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Total Gaji</th>
                 </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
@@ -134,10 +126,6 @@
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-800">
                             {{ $trx->jumlah_unit }} Unit
-                        </td>
-
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-semibold text-gray-800">
-                            {{ $trx->tanggal_transaksi->format('H:i, d M Y ') }}
                         </td>
 
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-blue-600 font-semibold">
@@ -205,6 +193,16 @@
             }
         });
     });
+</script>
+
+{{-- Data untuk Chart.js --}}
+<script>
+    window.chartData = {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Des'],
+        revenue: [120000000, 95000000, 140000000, 110000000, 190000000, 120000000, 95000000, 140000000, 110000000, 160000000, 110000000, 160000000],
+        // transaksi: [120, 95, 140, 110, 160],
+        // unit: [340, 280, 410, 360, 480]
+    };
 </script>
 
 @endsection

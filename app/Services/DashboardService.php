@@ -20,9 +20,6 @@ class DashboardService
 
             'totalPenjualan' => (clone $queryBulanIni)->sum('harga_total'),
 
-            'totalGaji' =>
-                Sales::sum('gaji_pokok')
-                + (clone $queryBulanIni)->sum('komisi_penjualan'),
-        ];
+            'totalTransaksi' => (clone $queryBulanIni)->count()        ];
     }
 }

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Admin - Clarity Sales</title>
     @vite('resources/css/app.css')
+    @vite('resources/js/app.js')
 </head>
 <body class="bg-gray-100 font-sans text-gray-800">
 
@@ -23,7 +24,7 @@
             <header class="flex justify-between items-center mb-10">
                 
             <div class="w-0 h-10"></div> 
-                <form method="GET" class="relative w-full mx-auto mr-8">
+                <form id="searchForm" method="GET" class="relative w-full mx-auto mr-8">
                     <input
                         type="text"
                         name="search"
@@ -90,44 +91,9 @@
     </main>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const button = document.getElementById('profileDropdownBtn');
-        const dropdown = document.getElementById('profileDropdownContent');
-
-        if (button && dropdown) { 
-            function toggleDropdown() { dropdown.classList.toggle('hidden'); }
-            button.addEventListener('click', toggleDropdown);
-            document.addEventListener('click', function(event) {
-                if (!button.contains(event.target) && !dropdown.contains(event.target)) {
-                    if (!dropdown.classList.contains('hidden')) { dropdown.classList.add('hidden'); }
-                }
-            });
-        }
-    });
-</script>
 <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    const input = document.getElementById('searchInput');
-    const form = document.getElementById('searchForm');
-
-    let timer = null;
-
-    input.addEventListener('input', function () {
-        clearTimeout(timer);
-
-        timer = setTimeout(() => {
-            if (this.value.trim() === '') {
-                // input kosong → reload ke data awal
-                window.location.href = window.location.pathname;
-            } else {
-                // input ada → submit search
-                form.submit();
-            }
-        }, 400); // debounce 400ms
-    });
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
 @if (session('success'))
@@ -141,6 +107,7 @@
     });
 </script>
 @endif
+
 
 </body>
 </html>

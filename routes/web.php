@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\TransaksiController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\LaporanGajiController;
@@ -34,6 +35,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Dashboard
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
+
+    // Transaksi
+    Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::patch('/transaksi/{id}/update-status', [TransaksiController::class, 'updateStatus'])
+        ->name('transaksi.update-status');
 
     // Master Data Admin -> Sales
     Route::resource('sales', SalesController::class);

@@ -11,13 +11,16 @@ class TransaksiPenjualan extends Model
     use HasFactory;
 
     protected $table = 'transaksi_penjualan';
-    protected $primaryKey = 'transaksi_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'kode_transaksi',
         'tanggal_transaksi',
         'sales_id',
         'produk_id',
+        'status_verifikasi',
+        'bukti_transaksi',
+        'verified_by',
         'jumlah_unit',
         'harga_total',
         'komisi_penjualan',

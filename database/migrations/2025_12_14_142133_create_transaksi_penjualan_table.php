@@ -29,7 +29,6 @@ return new class extends Migration
             $table->decimal('komisi_penjualan', 10, 2)->default(0);
 
             $table->timestamps();
-
         });
     }
 

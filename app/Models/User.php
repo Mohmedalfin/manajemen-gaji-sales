@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function sales()
     {
-        return $this->belongsTo(Sales::class, 'sales_id', 'sales_id');
+        return $this->belongsTo(Sales::class, 'sales_id', 'id');
     }
 
     public function profile()

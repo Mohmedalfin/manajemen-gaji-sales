@@ -9,31 +9,46 @@ use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\Admin\LaporanGajiController;
 use App\Http\Controllers\Admin\ProfileController;
 
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
 
+// --- RUTE UNTUK TAMU (BELUM LOGIN) ---
 Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
 });
 
+// --- RUTE UTAMA (REDIRECT OTOMATIS BERDASARKAN ROLE) ---
 Route::middleware('auth')->get('/', function () {
     $user = auth()->user();
 
     return match ($user->role) {
         'admin' => redirect()->route('admin.dashboard'),
-        'sales' => redirect()->route('sales.dashboard'), // jika ada
+        'sales' => redirect()->route('sales.dashboard'),
         default => abort(403),
     };
 });
 
-
+// --- RUTE LOGOUT ---
 Route::post('/logout', [LoginController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
 
 
+// ==========================================
+// RUTE KHUSUS ADMIN
+// ==========================================
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
 
-    // Dashboard
+    // Dashboard Admin
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
 
     // Transaksi
@@ -43,6 +58,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 
     // Master Data Admin -> Sales
     Route::resource('sales', SalesController::class);
+    // (Opsional: Penamaan manual jika resource default konflik)
     Route::resource('admin/sales', SalesController::class)->names([
          'store' => 'admin.sales.store',
     ]);
@@ -57,12 +73,11 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/barang/{barang}', [ProdukController::class, 'update'])->name('barang.update');
     Route::delete('/barang/{barang}', [ProdukController::class,'destroy'])->name('barang.destroy');
 
-    // Laporan
+    // Laporan Gaji
     Route::get('/laporan-gaji/export', [LaporanGajiController::class, 'exportExcel'])->name('laporan-gaji.export');
-
     Route::resource('laporan-gaji', LaporanGajiController::class);
 
-    // Profile (singleton)
+    // Profile Admin
     Route::controller(ProfileController::class)
         ->prefix('profile')
         ->name('profile.')
@@ -73,10 +88,37 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
 });
 
 
+// ==========================================
+// RUTE KHUSUS SALES
+// ==========================================
 Route::middleware(['auth'])->prefix('sales')->name('sales.')->group(function () {
 
+    // 1. Dashboard Sales
     Route::get('/dashboard', function () {
         return view('sales.dashboard');
     })->name('dashboard');
+
+    // 2. Profil Sales
+    Route::get('/profil', function () {
+        return view('sales.profil');
+    })->name('profil');
+    
+    // Rute Update Profil (Opsional)
+    Route::put('/profil', [ProfileController::class, 'update'])->name('profil.update');
+
+    // 3. Input Data Sales
+    Route::get('/input', function () {
+        return view('sales.input');
+    })->name('input');
+
+    // 4. Ganti Password Sales
+    // A. Tampilkan Halaman
+    Route::get('/password', function () {
+        return view('sales.password');
+    })->name('password');
+
+    // B. PROSES SIMPAN PASSWORD (INI YANG SEBELUMNYA HILANG)
+    // Pastikan menggunakan method 'updatePassword' dari ProfileController
+    Route::put('/password', [ProfileController::class, 'updatePassword'])->name('password.update');
 
 });

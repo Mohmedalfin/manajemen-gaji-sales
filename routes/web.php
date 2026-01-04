@@ -32,8 +32,8 @@ Route::middleware('auth')->get('/', function () {
 
     return match ($user->role) {
         'admin' => redirect()->route('admin.dashboard'),
-        'sales' => redirect()->route('sales.dashboard'),
-        default => abort(403),
+        'sales' => redirect()->route('sales.dashboard'), 
+         default => abort(403),
     };
 });
 

@@ -5,11 +5,11 @@
 **Sistem Informasi Manajemen Penggajian Sales** adalah aplikasi berbasis web yang dirancang untuk mempermudah proses pencatatan penjualan, monitoring stok barang, serta otomatisasi perhitungan komisi dan penggajian sales secara efisien.
 
 **Anggota Kelompok 2 :
-**-5230311052-M. Alfin Maulana (Backend Developer)
-**-5230311052-Bayu Rizky B (Frontend Developer)
-**-5230311052-Lutfi Dwi Fitriani (UI/UX Designer)
-**-5230311052-Thiffany Khusnul M (Auditor)
-**-5230311052-Yovella Jeny (Auditor)
+**-5230311052-M. Alfin Maulana (Backend Developer).
+**-5230311052-Bayu Rizky B (Frontend Developer).
+**-5230311052-Lutfi Dwi Fitriani (UI/UX Designer).
+**-5230311052-Thiffany Khusnul M (Auditor).
+**-5230311052-Yovella Jeny (Auditor).
 
 ---
 
